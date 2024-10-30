@@ -23,13 +23,17 @@ MRv (Movie Reviewed) is a dynamic movie recommendation website designed to provi
 
 To set up and run MRv, follow these steps:
 
-```bash
 # Clone the repository
+```bash
 git clone https://github.com/Harshit-Patel01/MRv.git
 cd MRv
+```
 
 # Install dependencies
+```bash
 npm install
-
+```
 # Start the server
+```bash
 npm start
+```
