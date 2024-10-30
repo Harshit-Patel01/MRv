@@ -10,14 +10,14 @@ const runningTime = document.querySelector('.carousel .timeRunning');
 // Store Netflix genre URLs in an array
 const netflixUrls = [
     'https://www.netflix.com/browse/genre/34399',      // Home
-    'https://www.netflix.com/in/browse/genre/9744',    // Fantasy
-    'https://www.netflix.com/in/browse/genre/8711',    // Horror
-    'https://www.netflix.com/in/browse/genre/3276033', // Sci-Fi
-    'https://www.netflix.com/in/browse/genre/8883',    // Romance
-    'https://www.netflix.com/in/browse/genre/5763',    // Drama
-    'https://www.netflix.com/in/browse/genre/1365',    // Action
-    'https://www.netflix.com/in/browse/genre/8933',    // Thriller
-    'https://www.netflix.com/in/browse/genre/6548'     // Comedy
+    'https://www.netflix.com/browse/genre/9744',    // Fantasy
+    'https://www.netflix.com/browse/genre/8711',    // Horror
+    'https://www.netflix.com/browse/genre/3276033', // Sci-Fi
+    'https://www.netflix.com/browse/genre/8883',    // Romance
+    'https://www.netflix.com/browse/genre/5763',    // Drama
+    'https://www.netflix.com/browse/genre/1365',    // Action
+    'https://www.netflix.com/browse/genre/8933',    // Thriller
+    'https://www.netflix.com/browse/genre/6548'     // Comedy
 ];
 
 // State management
