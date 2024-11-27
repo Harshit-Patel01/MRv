@@ -66,7 +66,7 @@ function hideLoadingScreen() {
 // Fetch functions
 async function fetchInitialMovies() {
     try {
-        const response = await fetch(`https://mrv1-b10l4xm3.b4a.run/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
+        const response = await fetch(`https://mrv-je95.onrender.com/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
@@ -88,7 +88,7 @@ async function fetchMoreMovies() {
     
     isLoading = true;
     try {
-        const response = await fetch(`https://mrv1-b10l4xm3.b4a.run/more?count=2`);
+        const response = await fetch(`https://mrv-je95.onrender.com/more?count=2`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
