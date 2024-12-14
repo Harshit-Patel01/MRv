@@ -6,6 +6,7 @@ const prevBtn = document.querySelector('.arrows').firstElementChild;
 const carousel = document.querySelector('.carousel');
 const Home = document.querySelector('.Home');
 const runningTime = document.querySelector('.carousel .timeRunning');
+const mobileOverlay = document.querySelector('.mobile-restriction-overlay');
 
 // Store Netflix genre URLs in an array
 const netflixUrls = [
@@ -32,6 +33,8 @@ let currentNetflixUrl = netflixUrls[0]; // Initialize with Home URL
 
 // Initialize the application
 async function initializeApp() {
+    handleMobileOverlay();
+
     showLoadingScreen();
     try {
         await fetchInitialMovies();
@@ -39,6 +42,12 @@ async function initializeApp() {
         initializeCarousel();
     } catch (error) {
         handleError(error);
+    }
+}
+
+function handleMobileOverlay() {
+    if (mobileOverlay) {
+        mobileOverlay.style.display = window.innerWidth > 1024 ? 'none' : 'flex';
     }
 }
 
@@ -66,7 +75,7 @@ function hideLoadingScreen() {
 // Fetch functions
 async function fetchInitialMovies() {
     try {
-        const response = await fetch(`https://mrv-9l2popfi.b4a.run/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
+        const response = await fetch(`http://20.198.23.234:3001/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
@@ -88,7 +97,7 @@ async function fetchMoreMovies() {
     
     isLoading = true;
     try {
-        const response = await fetch(`https://mrv-9l2popfi.b4a.run/more?count=2`);
+        const response = await fetch(`http://20.198.23.234:3001/more?count=2`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
@@ -244,6 +253,29 @@ links.forEach((link, index) => {
         }
     });
 });
+// Add event listeners for About section
+document.addEventListener('DOMContentLoaded', () => {
+    const aboutLink = document.querySelector('.about-link');
+    const aboutOverlay = document.getElementById('aboutOverlay');
+    const closeAbout = document.querySelector('.close-about');
 
-// Initialize the application when the DOM is loaded
+    aboutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        aboutOverlay.style.display = 'flex';
+    });
+
+    closeAbout.addEventListener('click', () => {
+        aboutOverlay.style.display = 'none';
+    });
+
+    // Close overlay when clicking outside the card
+    aboutOverlay.addEventListener('click', (e) => {
+        if (e.target === aboutOverlay) {
+            aboutOverlay.style.display = 'none';
+        }
+    });
+});
+
+window.addEventListener('load', handleMobileOverlay);
+window.addEventListener('resize', handleMobileOverlay);
 document.addEventListener('DOMContentLoaded', initializeApp);
