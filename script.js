@@ -75,7 +75,7 @@ function hideLoadingScreen() {
 // Fetch functions
 async function fetchInitialMovies() {
     try {
-        const response = await fetch(`http://20.198.23.234:3001/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
+        const response = await fetch(`http://localhost:3000/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
@@ -97,7 +97,7 @@ async function fetchMoreMovies() {
     
     isLoading = true;
     try {
-        const response = await fetch(`http://20.198.23.234:3001/more?count=2`);
+        const response = await fetch(`http://localhost:3000/more?count=2`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
