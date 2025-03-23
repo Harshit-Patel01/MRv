@@ -5,8 +5,13 @@ const nextBtn = document.querySelector('.arrows').lastElementChild;
 const prevBtn = document.querySelector('.arrows').firstElementChild;
 const carousel = document.querySelector('.carousel');
 const Home = document.querySelector('.Home');
-const runningTime = document.querySelector('.carousel .timeRunning');
+const runningTime = document.querySelector('.timeRunning');
 const mobileOverlay = document.querySelector('.mobile-restriction-overlay');
+const navLinks = document.querySelectorAll('.nav a');
+const navIndicator = document.querySelector('.nav-indicator');
+
+// Configure API base URL - will use /api path to route through nginx
+const API_BASE_URL = '/api';
 
 // Store Netflix genre URLs in an array
 const netflixUrls = [
@@ -34,6 +39,7 @@ let currentNetflixUrl = netflixUrls[0]; // Initialize with Home URL
 // Initialize the application
 async function initializeApp() {
     handleMobileOverlay();
+    setupNavIndicator();
 
     showLoadingScreen();
     try {
@@ -43,6 +49,39 @@ async function initializeApp() {
     } catch (error) {
         handleError(error);
     }
+}
+
+// Setup the navigation indicator animation
+function setupNavIndicator() {
+    if (!navIndicator) return;
+    
+    // Position the indicator under the active link
+    updateNavIndicator();
+    
+    // Add hover effects
+    navLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const linkRect = link.getBoundingClientRect();
+            navIndicator.style.width = `${linkRect.width}px`;
+            navIndicator.style.transform = `translateX(${linkRect.left - link.parentElement.getBoundingClientRect().left}px)`;
+        });
+        
+        link.addEventListener('mouseleave', () => {
+            updateNavIndicator();
+        });
+    });
+}
+
+// Update the nav indicator position to match the active link
+function updateNavIndicator() {
+    const activeLink = document.querySelector('.nav a.active');
+    if (!activeLink) return;
+    
+    const activeLinkRect = activeLink.getBoundingClientRect();
+    const navRect = activeLink.parentElement.getBoundingClientRect();
+    
+    navIndicator.style.width = `${activeLinkRect.width}px`;
+    navIndicator.style.transform = `translateX(${activeLinkRect.left - navRect.left}px)`;
 }
 
 function handleMobileOverlay() {
@@ -75,7 +114,7 @@ function hideLoadingScreen() {
 // Fetch functions
 async function fetchInitialMovies() {
     try {
-        const response = await fetch(`http://localhost:3000/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
+        const response = await fetch(`${API_BASE_URL}/initial?url=${encodeURIComponent(currentNetflixUrl)}`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
@@ -97,7 +136,7 @@ async function fetchMoreMovies() {
     
     isLoading = true;
     try {
-        const response = await fetch(`http://localhost:3000/more?count=2`);
+        const response = await fetch(`${API_BASE_URL}/more?count=2`);
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         
         const data = await response.json();
@@ -233,6 +272,9 @@ links.forEach((link, index) => {
         // Add active class to clicked link
         this.classList.add('active');
         
+        // Update navigation indicator
+        updateNavIndicator();
+        
         // Update current URL and reset state
         if (index < netflixUrls.length) {
             currentNetflixUrl = netflixUrls[index];
@@ -253,6 +295,7 @@ links.forEach((link, index) => {
         }
     });
 });
+
 // Add event listeners for About section
 document.addEventListener('DOMContentLoaded', () => {
     const aboutLink = document.querySelector('.about-link');
@@ -273,6 +316,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === aboutOverlay) {
             aboutOverlay.style.display = 'none';
         }
+    });
+});
+
+// Trending items hover effects
+const trendingItems = document.querySelectorAll('.trending-item');
+trendingItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        trendingItems.forEach(otherItem => {
+            if (otherItem !== item) {
+                otherItem.style.opacity = '0.7';
+                otherItem.style.transform = 'scale(0.95)';
+            }
+        });
+    });
+    
+    item.addEventListener('mouseleave', () => {
+        trendingItems.forEach(otherItem => {
+            otherItem.style.opacity = '1';
+            otherItem.style.transform = 'translateY(0)';
+        });
     });
 });
 

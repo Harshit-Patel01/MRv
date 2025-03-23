@@ -1,0 +1,27 @@
+name: MRv
+
+services:
+  frontend:
+    # Development-specific configuration
+    volumes:
+      # Mount source code for live editing
+      - ./MRv.html:/usr/share/nginx/html/index.html
+      - ./style.css:/usr/share/nginx/html/style.css
+      - ./script.js:/usr/share/nginx/html/script.js
+      - ./assets:/usr/share/nginx/html/assets
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+  backend:
+    # Development-specific configuration
+    build:
+      args:
+        - NODE_ENV=development
+    environment:
+      - NODE_ENV=development
+    volumes:
+      # Mount source code for live editing
+      - ./:/usr/src/app
+      # Exclude node_modules from the mount
+      - /usr/src/app/node_modules
+    # Override the default command to use nodemon
+    command: npm run dev 

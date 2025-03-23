@@ -6,6 +6,9 @@
     <title>MRv - Movie reViewed</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" sizes="16">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -13,7 +16,7 @@
         <div class="loading-content">
             <div class="loading-logo">MRv</div>
             <div class="loading-spinner"></div>
-            <div class="loading-text">Loading your entertainment...</div>
+            <div class="loading-text">Finding Your Perfect Watch...</div>
             <div class="loading-bars">
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -30,29 +33,35 @@
                 <div class="logo">
                     <h2>MRv</h2>
                 </div>
-                <!-- Nav Bar -->
-                <nav class="nav">
-                    <a href="" class="active">Home</a>
-                    <a href="">Fantasy</a>
-                    <a href="">Horror</a>
-                    <a href="">Sci-Fi</a>
-                    <a href="">Romance</a>
-                    <a href="">Drama</a>
-                    <a href="">Action</a>
-                    <a href="">Thriller</a>
-                    <a href="">Comedy</a>
-                    <a href="#" class="about-link">About</a>
-                </nav>
+                
+                <!-- Nav Container with Underline Effect -->
+                <div class="nav-container">
+                    <nav class="nav">
+                        <a href="" class="active">Home</a>
+                        <a href="">Fantasy</a>
+                        <a href="">Horror</a>
+                        <a href="">Sci-Fi</a>
+                        <a href="">Romance</a>
+                        <a href="">Drama</a>
+                        <a href="">Action</a>
+                        <a href="">Thriller</a>
+                        <a href="">Comedy</a>
+                        <a href="#" class="about-link">About</a>
+                    </nav>
+                    <div class="nav-indicator"></div>
+                </div>
 
+                <!-- Search -->
                 <div class="search">
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);">
-                            <path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z" />
-                        </svg>
-                    </a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z" />
+                    </svg>
                 </div>
             </div>
         </header>
+
+        <!-- Backdrop Gradient -->
+        <div class="backdrop-gradient"></div>
 
         <!-- Carousel Section -->
         <div class="carousel">
@@ -60,18 +69,40 @@
                 <!-- Movie items will be dynamically inserted here -->
             </div>
 
-            <div class="arrows"> 
-                <button class="prev"><</button>
-                <button class="next">></button>
+            <div class="carousel-controls">
+                <div class="timeRunning"></div>
+                <div class="arrows"> 
+                    <button class="prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    <button class="next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div class="timeRunning"></div>
+            
+            <!-- Movie Description Card -->
+            <div class="movie-info-card">
+                <div class="movie-info-content">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
+
         <footer class="page-footer">
-            <div class="footer-credit">
-                Made with 💖 by HA$H and team
+            <div class="footer-content">
+                <div class="footer-credit">
+                    Made with 💖 by HA$H and team
+                </div>
             </div>
         </footer>
     </div>
+
+    <!-- About Overlay -->
     <div id="aboutOverlay" class="about-overlay">
         <div class="about-card">
             <div class="about-card-content">
@@ -109,6 +140,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Mobile Restriction Overlay -->
     <div class="mobile-restriction-overlay">
         <div class="loading-logo">MRv</div>
         <div class="restriction-message">

@@ -1,24 +1,23 @@
-FROM node
+FROM node:slim
 
-# Use production node environment by default.
-ENV NODE_ENV production
-
-
+# Create app directory
 WORKDIR /usr/src/app
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.npm to speed up subsequent builds.
-# Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
-# into this layer.
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+
+# Install dependencies (conditionally include dev dependencies)
+RUN if [ "$NODE_ENV" = "production" ] ; then npm ci --only=production ; else npm ci ; fi
+
+# Bundle app source
 COPY . .
-RUN npm ci
 
-# Run the application as a non-root user.
-USER node
-
-
-# Expose the port that the application listens on.
+# Expose port
 EXPOSE 3000
 
-# Run the application.
-CMD node server.js
+# Default to production mode if not specified
+ENV NODE_ENV=production
+
+# Run the application
+CMD ["node", "server.js"]
