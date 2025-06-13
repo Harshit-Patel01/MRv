@@ -39,7 +39,7 @@ A lightweight, self-hosted movie recommendation web app that dynamically scrapes
 
 ```bash
 # 1) Clone & enter the repository
-$ git clone https://github.com/<your-user>/MRv.git
+$ git clone https://github.com/Harshit-Patel01/MRv.git
 $ cd MRv
 
 # 2) Install server dependencies
