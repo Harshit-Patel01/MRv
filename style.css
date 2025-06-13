@@ -213,7 +213,7 @@ body {
     }
     
     .nav {
-        display: none; /* Consider adding a mobile menu */
+        display: none;
     }
     
     .logo h2 {
